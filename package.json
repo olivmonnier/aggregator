@@ -32,9 +32,11 @@
     "webpack": "^3.10.0"
   },
   "dependencies": {
+    "feedme": "^1.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-mdl": "^1.11.0"
+    "react-mdl": "^1.11.0",
+    "request": "^2.83.0"
   },
   "standard": {
     "parser": "typescript-eslint-parser",

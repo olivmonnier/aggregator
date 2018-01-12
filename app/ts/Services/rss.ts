@@ -1,4 +1,4 @@
-import { IRssItem, IFeed } from '../Interfaces/Rss';
+import { IRssItem, IFeed } from '../Interfaces';
 import { IFeedMe } from './IFeedMe';
 import * as request from 'request';
 

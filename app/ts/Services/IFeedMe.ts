@@ -1,4 +1,4 @@
-import { IRssItem } from '../Interfaces/Rss';
+import { IRssItem } from '../Interfaces';
 
 export interface IFeedMe {
   new (flag?: boolean): NodeJS.WritableStream;

@@ -1,27 +1,61 @@
 import * as React from "react";
 import { Drawer, Navigation, Icon, FABButton } from "react-mdl";
+import { IMenuItem, IStore } from '../Interfaces';
+import AddFeedDialog from './AddFeedDialog';
 
-export default class Menu extends React.Component<{}, {}> {
+interface IProps {
+  store: IStore;
+}
+
+export default class Menu extends React.Component<IProps, {}> {
+  static makeClassName = (toggle: boolean) => {
+    const classList = ['mdl-navigation__link'];
+    toggle && classList.push('mdl-navigation__link--current');
+    return classList.join(' ');
+  }
+
+  private onAddFeed = () => {
+    this.props.store.toggleOpenAddFeed(true);
+  }
+
+  private onRemoveFeed = () => {
+    const { removeFeed, fetchMenu, state } = this.props.store;
+    removeFeed(state.activeFeedUrl);
+    fetchMenu();
+  }
+
+  private onRefresh = () => {
+    this.props.store.fetchMenu();
+  }
+
   render() {
+    const { state } = this.props.store,
+      menu = state.menu || [];
+
     return (
       <Drawer className="mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <AddFeedDialog store={this.props.store} />
         <Navigation className="mdl-color--blue-grey-80">
-          <a>
-            <Icon name="&#xE0E5;" />
-            Link title
-          </a>
+          { menu.map((item: IMenuItem) => (
+            <a key={ item.id } href={ `#{item.id}` } className={Menu.makeClassName(item.url === state.activeFeedUrl)}>
+              <Icon name="&#xE0E5;"/>
+              { item.title }
+            </a>
+          )) }
         </Navigation>
         <div className="mdl-layout-spacer"></div>
         <div className="tools">
-          <FABButton mini>
+          <FABButton mini onClick={ this.onAddFeed }>
             <Icon name="add"/>
           </FABButton>
 
-          <FABButton mini>
-            <Icon name="delete"/>
-          </FABButton>
+          { state.activeFeedUrl && (
+            <FABButton mini onClick={ this.onRemoveFeed }>
+              <Icon name="delete" />
+            </FABButton>
+          )}         
 
-          <FABButton mini>
+          <FABButton mini onClick={ this.onRefresh }>
             <Icon name="autorenew"/>
           </FABButton>
         </div>

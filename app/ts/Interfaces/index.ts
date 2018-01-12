@@ -1,5 +1,16 @@
-import { IRssItem } from './Rss';
 import { Action } from 'redux-actions';
+
+export interface IRssItem {
+  description: string;
+  link: string;
+  pubdate: string;
+  title: string;
+}
+
+export interface IFeed {
+  title: string;
+  items: IRssItem[];
+}
 
 export interface IMenuItem {
   url: string;
@@ -29,3 +40,9 @@ export interface IAppActions {
   removeFeed: (url: string) => Promise<IMenuItem[]>;
   fetchFeed: (url: string) => Promise<IFeed>;
 }
+
+export interface IRootState {
+  state: IAppState;
+} 
+
+export type IStore = IRootState & IAppActions;

@@ -22268,9 +22268,9 @@ const promiseMiddleware = __webpack_require__(434);
 const storeEnhancer = redux_1.compose(redux_1.applyMiddleware(redux_thunk_1.default, promiseMiddleware));
 const store = redux_1.createStore(Reducers_1.default, storeEnhancer);
 const router = new Router_1.default(store);
-router.register();
 ReactDOM.render(React.createElement(react_redux_1.Provider, { store: store },
     React.createElement(App_1.default, Object.assign({}, this.props))), document.getElementById("root"));
+router.register();
 
 
 /***/ }),

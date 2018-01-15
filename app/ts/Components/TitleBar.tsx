@@ -7,10 +7,14 @@ export default class TitleBar extends React.Component<{}, {}> {
   private onClose = () => {
     remote.getCurrentWindow().close();
   }
+  private onMinimize = () => {
+    remote.getCurrentWindow().minimize();
+  }
   render() {
     return (
      <Header title="RSS Aggregator" scroll>
         <Navigation>
+            <a href="#" onClick={this.onMinimize}><Icon name="minimize" /></a>
             <a href="#" onClick={this.onClose}><Icon name="close" /></a>
         </Navigation>
     </Header>

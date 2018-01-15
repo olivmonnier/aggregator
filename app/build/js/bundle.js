@@ -87675,10 +87675,15 @@ class TitleBar extends React.Component {
         this.onClose = () => {
             electron_1.remote.getCurrentWindow().close();
         };
+        this.onMinimize = () => {
+            electron_1.remote.getCurrentWindow().minimize();
+        };
     }
     render() {
         return (React.createElement(react_mdl_1.Header, { title: "RSS Aggregator", scroll: true },
             React.createElement(react_mdl_1.Navigation, null,
+                React.createElement("a", { href: "#", onClick: this.onMinimize },
+                    React.createElement(react_mdl_1.Icon, { name: "minimize" })),
                 React.createElement("a", { href: "#", onClick: this.onClose },
                     React.createElement(react_mdl_1.Icon, { name: "close" })))));
     }

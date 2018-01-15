@@ -1,25 +1,29 @@
-import { Layout, Content } from 'react-mdl';
-import * as React from 'react';
-import { connect } from 'react-redux';
+import { Layout, Content } from "react-mdl";
+import * as React from "react";
+import { connect } from "react-redux";
 
-import ErrorAlert from '../Components/ErrorAlert';
-import TitleBar from '../Components/TitleBar';
-import Menu from '../Components/Menu';
-import Feed from '../Components/Feed';
+import actions from "../Actions/actions";
+import { IRootState, TStore } from "../Interfaces";
 
-import { IRootState, IStore } from '../Interfaces';
-import actions from '../Actions/actions';
+import ErrorAlert from "../Components/ErrorAlert";
+import TitleBar from "../Components/TitleBar";
+import Menu from "../Components/Menu";
+import Feed from "../Components/Feed";
 
-const mapStateToProps = (state: IRootState) => state;
+
+// mapping state to the props
+const mapStateToProps = ( state: IRootState ) => state;
+// mapping actions to the props
 const mapDispatchToProps = {
   ...actions
 };
 
-class App extends React.Component<IStore, {}> {
+class App extends React.Component<TStore, {}> {
+
   componentDidMount() {
     this.props.fetchMenu();
   }
-  
+
   render() {
     return (
       <div className="main-wrapper">
@@ -28,15 +32,16 @@ class App extends React.Component<IStore, {}> {
           <TitleBar />
           <Menu store={this.props} />
           <Content>
-            <Feed store={this.props}/>
+            <Feed store={this.props} />
           </Content>
         </Layout>
       </div>
-    )
+    );
   }
 }
 
+// connect store to App
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)( App );

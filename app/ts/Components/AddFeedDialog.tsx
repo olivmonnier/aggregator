@@ -1,30 +1,36 @@
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Textfield } from 'react-mdl';
-import * as React from 'react';
-import { IStore } from '../Interfaces';
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Textfield } from "react-mdl";
+import * as React from "react";
+import { TStore } from "../Interfaces";
 
 interface IProps {
-  store: IStore;
+  store: TStore;
 }
-
 export default class AddFeedDialog extends React.Component<IProps, {}> {
+
   private urlEl: Textfield;
   private formEl: HTMLFormElement;
-  private onSubmit = (e: React.MouseEvent<HTMLFormElement>) => {
+
+  // Handle "form submit" event
+  private onSubmit = ( e: React.MouseEvent<HTMLFormElement>  ) => {
+    // https://github.com/react-mdl/react-mdl/issues/465
     const urlEl = this.urlEl as any;
     e.preventDefault();
-    this.save(urlEl.inputRef.value);
+    this.save( urlEl.inputRef.value );
   }
-  async save(url: string) {
+  // Try to add a given URL into feed list
+  async save( url: string ){
     const { addFeed, fetchMenu } = this.props.store;
-    await addFeed(url);
+    await addFeed( url );
     await fetchMenu();
-    if (!this.props.store.state.feedError) {
+    if ( !this.props.store.state.feedError ){
       this.formEl.reset();
     }
   }
+
+  // Handle "close modal" event
   private close = () => {
-    this.props.store.toggleOpenAddFeed(false);
-    this.formEl.reset();
+     this.props.store.toggleOpenAddFeed( false );
+     this.formEl.reset();
   }
 
   render() {
@@ -32,23 +38,28 @@ export default class AddFeedDialog extends React.Component<IProps, {}> {
 
     return (
       <div>
-        <Dialog open={ isOpenAddFeed }>
+
+        <Dialog open={isOpenAddFeed}>
           <DialogTitle>New Feed</DialogTitle>
           <DialogContent>
-            <form onSubmit={ this.onSubmit } ref={ (el: HTMLFormElement) => { this.formEl = el; }}>
-              <Textfield
+            <form onSubmit={this.onSubmit} ref={(el: HTMLFormElement) => { this.formEl = el; }}>
+
+            <Textfield
                 label="URL"
                 required
                 floatingLabel
-                ref={ (el: Textfield) =>{ this.urlEl = el; }}/>
+                ref={(el: Textfield) => { this.urlEl = el; }}
+            />
+
             </form>
           </DialogContent>
           <DialogActions>
-            <Button type="button" onClick={ this.onSubmit }>Save</Button>
-            <Button type="button" onClick={ this.close }>Cancel</Button>
+            <Button type="button" onClick={this.onSubmit}>Save</Button>
+            <Button type="button" onClick={this.close}>Cancel</Button>
           </DialogActions>
         </Dialog>
       </div>
-    )
+    );
   }
 }
+

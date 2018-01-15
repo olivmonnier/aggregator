@@ -4,9 +4,17 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
+    "removeComments": false,
+    "noImplicitAny": true,
     "outDir": "../dist/",
-    "jsx": "react"
+    "jsx": "react",
+    "noUnusedParameters": false,
+    "noUnusedLocals": true
   },
+
   "files": [
     "./app/ts/index.tsx"
   ]

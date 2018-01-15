@@ -1,26 +1,11 @@
-import { Action } from 'redux-actions';
-
-export interface IRssItem {
-  description: string;
-  link: string;
-  pubdate: string;
-  title: string;
-}
-
-export interface IFeed {
-  title: string;
-  items: IRssItem[];
-}
+import { Action } from "redux-actions";
+import { IRssItem, IFeed } from "./Rss";
+export * from "./Rss";
 
 export interface IMenuItem {
   url: string;
   title: string;
   id: string;
-}
-
-export interface IMenuRssPayload {
-  menuItems: IMenuItem[];
-  rssItems: IRssItem[];
 }
 
 export interface IAppState {
@@ -31,18 +16,24 @@ export interface IAppState {
   activeFeedUrl: string;
 }
 
-export interface IAppActions {
-  toggleOpenAddFeed: (toggle: boolean) => Action<boolean>;
-  setActiveFeed: (url: string) => Action<string>;
-  setFeedError: (msg: string) => Action<string>;
-  fetchMenu: () => Promise<IMenuRssPayload>;
-  addFeed: (url: string) => Promise<IMenuItem[]>;
-  removeFeed: (url: string) => Promise<IMenuItem[]>;
-  fetchFeed: (url: string) => Promise<IFeed>;
-}
-
 export interface IRootState {
   state: IAppState;
-} 
+}
 
-export type IStore = IRootState & IAppActions;
+export type TStore = IRootState & IAppActions;
+
+export interface IAppActions {
+  toggleOpenAddFeed: ( toggle: boolean ) => Action<boolean>;
+  setActiveFeed:  ( url: string ) => Action<string>;
+  setFeedError: ( msg: string ) => Action<string>;
+  fetchMenu: () => Promise<IMenuRssPayload>;
+  addFeed: ( url: string ) => Promise<IMenuItem[]>;
+  removeFeed: ( url: string ) => Promise<IMenuItem[]>;
+  fetchFeed: ( url: string ) => Promise<IFeed>;
+  key?: any;
+}
+
+export interface IMenuRssPayload {
+  menuItems: IMenuItem[];
+  rssItems: IRssItem[];
+}
